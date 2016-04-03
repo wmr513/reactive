@@ -7,8 +7,11 @@ Be sure to go into common.AMQPCommon.java and update the connection info for Rab
 
 public static Channel connect() throws Exception {	
 	ConnectionFactory factory = new ConnectionFactory();	
+
 -->	factory.setHost("192.163.98.101");
+
 -->	factory.setPort(32768);
+
 	Connection conn = factory.newConnection();	
 	return conn.createChannel();	
 }
