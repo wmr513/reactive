@@ -16,6 +16,7 @@ public static Channel connect() throws Exception {
 	return conn.createChannel();	
 }
 
+You will also need to be sure and run the AMQPInitialize class to setup all of the exchanges, queues, and bindings used by these examples.
 
 Each reactive pattern I discuss in my session can be found in each of the directories matching the pattern name.
 
