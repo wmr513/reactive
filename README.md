@@ -3,7 +3,7 @@ Reactive Architecture Patterns from NFJS Sessions
 
 To run these code samples you will need Java 1.7 or higher and RabbitMQ (3.5.4). I use the rabbitmq:latest docker image from Pivotal.
 
-Be sure to go into common.AMQPCommon.java and update the connection info for RabbitMQ:
+Be sure to go into common.AMQPCommon.java and update the connection info for RabbitMQ: (you can get this info from the RabbitMQ logs or doing a "docker ps" if you are using the docker image)
 
 public static Channel connect() throws Exception {	
 	ConnectionFactory factory = new ConnectionFactory();	
