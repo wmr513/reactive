@@ -1,5 +1,8 @@
 # reactive
-Reactive Architecture Patterns from NFJS Sessions
+Reactive Architecture Patterns Examples
+
+Java Instructions
+-------------------
 
 To run these code samples you will need Java 1.7 or higher and RabbitMQ (3.5.4). I use the rabbitmq:latest docker image from Pivotal.
 
@@ -20,6 +23,13 @@ You will also need to be sure and run the AMQPInitialize class to setup all of t
 
 If you want to run the scripts, you will need to set an environment variable REACT_HOME that points to the directory containing the src and lib directory where the class files and libraries are located. 
 
-Each reactive pattern I discuss in my session can be found in each of the directories matching the pattern name.
+.NET/C# Instructions
+-------------------
+
+To run these examples you will need the latest RabbitMQ image (nuget, version 4.1.3 RabbitMQ Client). You can run RabbitMQ from a docker container (Pivotal latest is what I use) or natively.
+
+Each directory under "reactive" should become a namespace for that context.
+
+I created these examples using the latest .NET Core for MacOS Sierra using Visual Studio for the Mac. 
 
 
