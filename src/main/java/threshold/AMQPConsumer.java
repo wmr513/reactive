@@ -12,16 +12,16 @@ import common.AMQPCommon;
 public class AMQPConsumer {
 
 	private List<Long> responseTimes = Arrays.asList(
-			new Long(200), 
-			new Long(800), 
-			new Long(300), 
-			new Long(900), 
-			new Long(1200), 
-			new Long(700), 
-			new Long(200), 
-			new Long(300), 
-			new Long(1100), 
-			new Long(1600) 
+			new Long(214), 
+			new Long(898), 
+			new Long(342), 
+			new Long(905), 
+			new Long(1203), 
+			new Long(705), 
+			new Long(262), 
+			new Long(6145), 
+			new Long(351), 
+			new Long(1104)
 	);
 	
 	public void execute() throws Exception {
@@ -34,11 +34,9 @@ public class AMQPConsumer {
 		while (true) {
 			QueueingConsumer.Delivery message = consumer.nextDelivery();
 			String msg = new String(message.getBody());
-			System.out.println("trade received: " + msg);
+			System.out.println("processing trade: " + msg);
 			String newMsg = "response";
 			byte[] bmsg = newMsg.getBytes();
-//			long sleep = ((long) ((new Random().nextDouble() * 2000) + 1));
-//			Thread.sleep(sleep);
 			Thread.sleep(responseTimes.get(index));
 			channel.basicPublish("", "trade.response.q", null, bmsg);
 			index++;

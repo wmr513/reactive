@@ -19,7 +19,6 @@ public class AMQPProducer {
 		QueueingConsumer consumer = new QueueingConsumer(channel);
 		channel.basicConsume("trade.response.q", true, consumer);
 		for (int i=0;i<10;i++) {
-//		while (true) {
 			long start = System.currentTimeMillis();
 			long shares = ((long) ((new Random().nextDouble() * 4000) + 1));
 			String text = "BUY,AAPL," + shares;
@@ -31,7 +30,11 @@ public class AMQPProducer {
 			long end = System.currentTimeMillis();
 			long duration = end - start;
 			System.out.println("trade confirmation received in " + duration + " ms");
-			if ((duration*2) > threshold) {
+			if ((duration*2) > (threshold*1.3)) {
+				System.out.println("duration exceeds 30% of threshold");
+				System.out.println("possible outlier detected");
+				System.out.println("timer started");
+			} else if ((duration*2) > threshold) {
 				threshold = duration*2;
 				String msg = "" + threshold;
 				byte[] configMsg = msg.getBytes();
@@ -39,7 +42,7 @@ public class AMQPProducer {
 				channel.basicPublish("", "config.q", null, configMsg);
 			}
 			System.out.println("");
-			Thread.sleep(1000);
+			System.in.read();
 		}
 		channel.close();
 		System.exit(0);
