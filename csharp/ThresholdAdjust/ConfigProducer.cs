@@ -21,7 +21,7 @@ namespace ConfigProducer
 			responseTimes.Add(1203);
 			responseTimes.Add(705);
 			responseTimes.Add(262);
-			responseTimes.Add(6145);
+			responseTimes.Add(2376);
 			responseTimes.Add(351);
 			responseTimes.Add(1104);
 
