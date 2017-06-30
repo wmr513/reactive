@@ -17,8 +17,9 @@ public class AMQPConfig {
 		
 		while (true) {
 			QueueingConsumer.Delivery message = consumer.nextDelivery();
-			String msg = new String(message.getBody());
-			System.out.println("UPDATE: place_trade, " + msg);
+			System.out.println(new String(message.getBody()));
+			//String msg = new String(message.getBody());
+			//System.out.println("UPDATE: place_trade, " + msg);
 		}			
 	}	
 	
