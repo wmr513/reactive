@@ -74,7 +74,7 @@
           </descriptorRefs>
           <archive>
             <manifest>
-              <mainClass>com.mkyong.core.utils.App</mainClass>
+              <mainClass>common.AMQPInitialize</mainClass>
             </manifest>
           </archive>
 
