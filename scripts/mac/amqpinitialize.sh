@@ -1,5 +1,5 @@
-HOME=$REACT_HOME
- 
+HOME=$REACT_HOMEzz
+
 CLASSPATH=$HOME/src/main/resources
 CLASSPATH=$CLASSPATH:$HOME/bin
 CLASSPATH=$CLASSPATH:$HOME/lib/commons-io-1.2.jar
