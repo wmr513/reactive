@@ -82,7 +82,6 @@
         <executions>
           <execution>
             <id>make-assembly</id>
-            <!-- bind to the packaging phase -->
             <phase>package</phase>
             <goals>
               <goal>single</goal>
