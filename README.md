@@ -23,7 +23,7 @@ public static Channel connect() throws Exception {
 
 You will also need to be sure and run the AMQPInitialize class to setup all of the exchanges, queues, and bindings used by these examples.
 
-If you want to run the scripts, you will need to set an environment variable REACT_HOME that points to the directory containing the src and lib directory where the class files and libraries are located. 
+If you want to run the scripts, you will need to set an environment variable REACT_HOME that points to the directory containing the src and lib directory where the class files and libraries are located in your local environment. 
 
 .NET/C# Instructions
 -------------------
