@@ -12,30 +12,37 @@ public class AMQPSupervisor {
 	private List<AMQPConsumer> consumers = new ArrayList<AMQPConsumer>();
 	Connection connection;
 	
-	public void run(long keepAlive) throws Exception {
-		System.out.println("Starting supervisor");
+	public void run(long keepAlive, boolean isSupervisor, long consumerCount) throws Exception {
+		System.out.println("Starting service");
+		if (isSupervisor) {
+			System.out.println("Starting supervisor");			
+		}
 		Channel channel = AMQPCommon.connect();
 		connection = channel.getConnection();
-		startConsumer();	
+		for (int i=0;i<consumerCount;i++) {
+			startConsumer();	
+		}
 
-		long check = 1000;
-		long checkCounter = 0;
-		while (true) {
-			long queueDepth = channel.messageCount("trade.eq.q");
-			long consumersNeeded = new Double(queueDepth/2).longValue();
-			long diff = Math.abs(consumersNeeded - consumers.size());
-			if (consumersNeeded > consumers.size()) {
-				for (int i=0;i<diff;i++) {
-					startConsumer();
+		if (isSupervisor) {
+			long check = 1000;
+			long checkCounter = 0;
+			while (true) {
+				long queueDepth = channel.messageCount("trade.eq.q");
+				long consumersNeeded = new Double(queueDepth/2).longValue();
+				long diff = Math.abs(consumersNeeded - consumers.size());
+				if (consumersNeeded > consumers.size()) {
+					for (int i=0;i<diff;i++) {
+						startConsumer();
+					}
+				} else if (checkCounter >= keepAlive) {
+					checkCounter = 0;
+					for (int i=0;i<diff;i++) {
+						stopConsumer(consumerCount);
+					}
 				}
-			} else if (checkCounter >= keepAlive) {
-				checkCounter = 0;
-				for (int i=0;i<diff;i++) {
-					stopConsumer();
-				}
+				checkCounter +=check;
+				Thread.sleep(check);
 			}
-			checkCounter +=check;
-			Thread.sleep(check);
 		}
 	}
 	
@@ -46,8 +53,8 @@ public class AMQPSupervisor {
 		new Thread(()->consumer.start(connection)).start();
 	}
 	
-	private void stopConsumer() throws Exception {
-		if (consumers.size() > 1) {
+	private void stopConsumer(long consumerCount) throws Exception {
+		if (consumers.size() > consumerCount) {
 			System.out.println("Removing consumer...");
 			AMQPConsumer consumer = consumers.get(0);
 			consumer.shutdown();
@@ -60,8 +67,12 @@ public class AMQPSupervisor {
 		java.util.Scanner input = new java.util.Scanner(System.in);
 	    System.out.print("Keep Alive (ms): ");
 	    long keepAlive = input.nextLong();
+	    System.out.print("Enable Supervisor (y/n): ");
+	    boolean isSupervisor = input.next().equalsIgnoreCase("y");
+	    System.out.print("Initial Consumers: ");
+	    long consumerCount = input.nextLong();
 		input.close();
-		app.run(keepAlive);
+		app.run(keepAlive, isSupervisor, consumerCount);
 	}
 }
 
